@@ -1,4 +1,18 @@
-export default function Post( data ) {
+import Image from 'next/image'
+
+export default function Post( data ){
+
+    // const post = data.post;
+    console.log(data);
+
+    return (
+        <div>
+            <h1>Howdy!</h1>
+            {/* <h1>{post.title}</h1>
+            <Image width="640" height="426" src={post.featuredImage.node.sourceUrl} />
+            <article dangerouslySetInnerHTML={{__html: post.content}}></article> */}
+        </div>
+    )
 
 }
 
@@ -46,9 +60,10 @@ export async function getStaticPaths() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             query: `
-                query AllPostsQuery {
-                    posts {
-                        nodes
+            query AllPostsQuery {
+                posts {
+                    nodes {
+                        slug
                         content
                         title
                         featuredImage {
@@ -58,8 +73,8 @@ export async function getStaticPaths() {
                         }
                     }
                 }
-            `
-        })
+            }
+        `})
     })
 
     const json = await res.json()
@@ -69,6 +84,6 @@ export async function getStaticPaths() {
         params: { slug: post.slug },
     }))
 
-    return { paths, falbacks: false }
+    return { paths, fallback: false }
 
 }

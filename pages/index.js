@@ -1,4 +1,5 @@
 export default function Home({ posts }) {
+  console.log(posts);
   return (
     <div>
       <h1> Hello from the Home Page </h1>
